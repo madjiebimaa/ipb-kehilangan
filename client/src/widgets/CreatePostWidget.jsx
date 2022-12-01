@@ -14,15 +14,16 @@ import {
   useTheme,
 } from "@mui/material";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import dayjs from "dayjs";
 import { Formik } from "formik";
 import { useState } from "react";
 import Dropzone from "react-dropzone";
 import { useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
 import FlexBetween from "../components/FlexBetween";
+import MultipleInputField from "../components/MultipleInputField";
 import WidgetWrapper from "../components/WidgetWrapper";
 import { setPosts } from "../state";
-import dayjs from "dayjs";
 
 const createPostSchema = yup.object().shape({
   title: yup.string().required("Required"),
@@ -33,7 +34,6 @@ const createPostSchema = yup.object().shape({
 const initialCreatePostSchema = {
   title: "",
   lostLocation: "",
-  picturePath: "",
 };
 
 export default function CreatePostWidget() {
@@ -44,8 +44,10 @@ export default function CreatePostWidget() {
   const [isImage, setIsImage] = useState(false);
   const [lostDate, setLostDate] = useState(dayjs());
   const [image, setImage] = useState(null);
+
   const { _id: userId } = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
+  const characteristics = useSelector((state) => state.postCharacteristics);
 
   const { medium, mediumMain } = palette.neutral;
 
@@ -57,7 +59,11 @@ export default function CreatePostWidget() {
     }
 
     formData.append("userId", userId);
-    formData.append("lostDate", lostDate);
+    formData.append("lostDate", lostDate.format("dddd, MMMM D YYYY"));
+
+    characteristics.forEach(function (characteristic, idx) {
+      formData.append(`characteristics[${idx}]`, characteristic);
+    });
 
     if (image) {
       formData.append("picture", image);
@@ -74,6 +80,7 @@ export default function CreatePostWidget() {
     dispatch(setPosts({ posts }));
     onSubmitProps.resetForm();
     setImage(null);
+    setIsImage(false);
   };
 
   return (
@@ -81,7 +88,7 @@ export default function CreatePostWidget() {
       <Formik
         onSubmit={handlePostFormSubmit}
         initialValues={initialCreatePostSchema}
-        validationSchema={createPostSchema}
+        // validationSchema={createPostSchema}
       >
         {({
           values,
@@ -135,6 +142,10 @@ export default function CreatePostWidget() {
                 helperText={touched.lostLocation && errors.lostLocation}
                 sx={{ gridColumn: "span 4" }}
               />
+            </Box>
+
+            <Box mt="1rem">
+              <MultipleInputField />
             </Box>
 
             {isImage && (

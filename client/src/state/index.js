@@ -5,6 +5,7 @@ const initialState = {
   user: null,
   token: null,
   posts: [],
+  postCharacteristics: [],
   isCreatePostShow: false,
 };
 
@@ -36,6 +37,9 @@ export const authSlice = createSlice({
     setIsCreatePostShow: (state) => {
       state.isCreatePostShow = !state.isCreatePostShow;
     },
+    setPostCharacteristics: (state, action) => {
+      state.postCharacteristics = action.payload.characteristics;
+    },
   },
 });
 
@@ -46,5 +50,6 @@ export const {
   setPosts,
   setPost,
   setIsCreatePostShow,
+  setPostCharacteristics,
 } = authSlice.actions;
 export default authSlice.reducer;

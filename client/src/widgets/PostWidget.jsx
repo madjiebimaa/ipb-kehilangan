@@ -80,9 +80,7 @@ const PostWidget = ({
         </Box>
         <Box display="flex" alignItems="center" gap="1rem">
           <CalendarToday fontSize="large" sx={{ color: medium }} />
-          <Typography color={main}>
-            {lostDate.format("dddd, MMMM D YYYY")}
-          </Typography>
+          <Typography color={main}>{lostDate}</Typography>
         </Box>
       </FlexBetween>
 
