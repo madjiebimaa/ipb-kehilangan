@@ -4,7 +4,7 @@ export async function getUserController(req, res) {
   try {
     const { userId } = req.params;
 
-    const user = await User.findOneById(userId);
+    const user = await User.findById(userId);
 
     res.status(200).json(user);
   } catch (err) {

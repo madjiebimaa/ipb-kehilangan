@@ -4,6 +4,9 @@
 # Assets
 src/assets
 
+# Dummy Data
+src/data
+
 ### dotenv ###
 .env
 
