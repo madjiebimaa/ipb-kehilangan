@@ -22,6 +22,7 @@ import * as yup from "yup";
 import FlexBetween from "../components/FlexBetween";
 import WidgetWrapper from "../components/WidgetWrapper";
 import { setPosts } from "../state";
+import dayjs from "dayjs";
 
 const createPostSchema = yup.object().shape({
   title: yup.string().required("Required"),
@@ -41,7 +42,7 @@ export default function CreatePostWidget() {
   const isMobileScreens = useMediaQuery("(min-width: 760px)");
 
   const [isImage, setIsImage] = useState(false);
-  const [lostDate, setLostDate] = useState(new Date());
+  const [lostDate, setLostDate] = useState(dayjs());
   const [image, setImage] = useState(null);
   const { _id: userId } = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);

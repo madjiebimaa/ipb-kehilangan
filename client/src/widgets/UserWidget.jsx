@@ -1,4 +1,4 @@
-import { Box, Divider, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import FlexBetween from "../components/FlexBetween";
@@ -9,8 +9,8 @@ export default function UserWidget({ userId, picturePath }) {
   const { palette } = useTheme();
   const navigate = useNavigate();
 
-  const user = useSelector((state) => state.user);
-  const { firstName, lastName } = user;
+  const loggedInUser = useSelector((state) => state.user);
+  const { firstName, lastName } = loggedInUser;
 
   return (
     <WidgetWrapper>
