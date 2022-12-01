@@ -44,10 +44,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-app.use("/", (req, res) => {
-  res.send("Welcome to IPB Kehilangan server");
-});
-
 app.get("/healtcheck", async (req, res) =>
   res.status(200).json({ message: "I'm healthy" })
 );
