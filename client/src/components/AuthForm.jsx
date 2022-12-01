@@ -113,7 +113,7 @@ export default function AuthForm() {
         setFieldValue,
         resetForm,
       }) => (
-        <form onSubmit={handleFormSubmit}>
+        <form onSubmit={handleSubmit}>
           {/* FORM */}
           <Box
             display="grid"
@@ -191,7 +191,7 @@ export default function AuthForm() {
                       >
                         <input {...getInputProps()} />
                         {!values.picture ? (
-                          <p>Add Picture Here</p>
+                          <p>Add Profile Picture Here</p>
                         ) : (
                           <FlexBetween>
                             <Typography>{values.picture.name}</Typography>
