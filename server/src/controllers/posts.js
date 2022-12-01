@@ -31,6 +31,7 @@ export async function createPostController(req, res) {
 
     res.status(201).json(post);
   } catch (err) {
+    console.log(err);
     res.status(409).json({ message: err.message });
   }
 }
@@ -41,6 +42,7 @@ export async function getPostsController(req, res) {
 
     res.status(200).json(post);
   } catch (err) {
+    console.log(err);
     res.status(404).json({ message: err.message });
   }
 }
@@ -53,6 +55,7 @@ export async function getUserPostsController(req, res) {
 
     res.status(200).json(post);
   } catch (err) {
+    console.log(err);
     res.status(404).json({ message: err.message });
   }
 }

@@ -8,6 +8,7 @@ export async function getUserController(req, res) {
 
     res.status(200).json(user);
   } catch (err) {
+    console.log(err);
     res.status(404).json({ message: err.message });
   }
 }

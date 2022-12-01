@@ -20,6 +20,7 @@ export const registerController = async (req, res) => {
 
     res.status(201).json(savedUser);
   } catch (err) {
+    console.log(err);
     res.status(500).json({ message: err.message });
   }
 };
@@ -40,6 +41,7 @@ export const loginController = async (req, res) => {
 
     res.status(200).json({ token, user });
   } catch (err) {
+    console.log(err);
     res.status(500).json({ message: err.message });
   }
 };
