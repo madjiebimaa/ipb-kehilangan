@@ -5,6 +5,7 @@ const initialState = {
   user: null,
   token: null,
   posts: [],
+  isCreatePostShow: false,
 };
 
 export const authSlice = createSlice({
@@ -32,9 +33,18 @@ export const authSlice = createSlice({
       });
       state.posts = updatedPosts;
     },
+    setIsCreatePostShow: (state) => {
+      state.isCreatePostShow = !state.isCreatePostShow;
+    },
   },
 });
 
-export const { setMode, setLogin, setLogout, setPosts, setPost } =
-  authSlice.actions;
+export const {
+  setMode,
+  setLogin,
+  setLogout,
+  setPosts,
+  setPost,
+  setIsCreatePostShow,
+} = authSlice.actions;
 export default authSlice.reducer;
