@@ -1,7 +1,10 @@
+import { Box } from "@mui/material";
+import NavBar from "../components/NavBar";
+
 export default function HomePage() {
   return (
-    <div>
-      <h1>HomePage</h1>
-    </div>
+    <Box>
+      <NavBar />
+    </Box>
   );
 }
