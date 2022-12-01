@@ -14,6 +14,7 @@ import Dropzone from "react-dropzone";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
+import { API_URL } from "../constants";
 import { setLogin } from "../state";
 import FlexBetween from "./FlexBetween";
 
@@ -62,10 +63,10 @@ export default function AuthForm() {
 
     formData.append("picturePath", values.picture.name);
 
-    const savedUserResponse = await fetch(
-      "http://localhost:3001/auth/register",
-      { method: "POST", body: formData }
-    );
+    const savedUserResponse = await fetch(`${API_URL}/auth/register`, {
+      method: "POST",
+      body: formData,
+    });
 
     const savedUser = await savedUserResponse.json();
     onSubmitProps.resetForm();
@@ -76,7 +77,7 @@ export default function AuthForm() {
   };
 
   const login = async (values, onSubmitProps) => {
-    const loggedInResponse = await fetch("http://localhost:3001/auth/login", {
+    const loggedInResponse = await fetch(`${API_URL}/auth/login`, {
       method: "POST",
       body: JSON.stringify(values),
       headers: { "Content-Type": "application/json" },

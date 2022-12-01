@@ -23,6 +23,7 @@ import { useDispatch, useSelector } from "react-redux";
 import FlexBetween from "../components/FlexBetween";
 import MultipleInputField from "../components/MultipleInputField";
 import WidgetWrapper from "../components/WidgetWrapper";
+import { API_URL } from "../constants";
 import { setPosts } from "../state";
 
 // const createPostSchema = yup.object().shape({
@@ -70,7 +71,7 @@ export default function CreatePostWidget() {
       formData.append("picturePath", image.name);
     }
 
-    const createPostResponse = await fetch(`http://localhost:3001/posts`, {
+    const createPostResponse = await fetch(`${API_URL}/posts`, {
       method: "POST",
       headers: { Authorization: `Bearer ${token}` },
       body: formData,

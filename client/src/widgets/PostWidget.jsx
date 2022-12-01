@@ -17,6 +17,7 @@ import { toPng } from "html-to-image";
 import { useCallback, useRef, useState } from "react";
 import FlexBetween from "../components/FlexBetween";
 import WidgetWrapper from "../components/WidgetWrapper";
+import { API_URL } from "../constants";
 
 const PostWidget = ({
   postId,
@@ -69,7 +70,7 @@ const PostWidget = ({
           height="auto"
           alt="post"
           style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
-          src={`http://localhost:3001/assets/${picturePath}`}
+          src={`${API_URL}/assets/${picturePath}`}
         />
       )}
 
