@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { API_URL } from "../constants";
@@ -38,7 +39,7 @@ export default function PostsWidget({ userId, isProfile = false }) {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <>
+    <Box>
       {posts.map(
         ({
           _id,
@@ -65,6 +66,6 @@ export default function PostsWidget({ userId, isProfile = false }) {
           />
         )
       )}
-    </>
+    </Box>
   );
 }

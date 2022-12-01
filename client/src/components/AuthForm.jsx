@@ -60,17 +60,15 @@ export default function AuthForm() {
     for (const value in values) {
       formData.append(value, values[value]);
     }
-
     formData.append("picturePath", values.picture.name);
 
     const savedUserResponse = await fetch(`${API_URL}/auth/register`, {
       method: "POST",
       body: formData,
     });
-
     const savedUser = await savedUserResponse.json();
-    onSubmitProps.resetForm();
 
+    onSubmitProps.resetForm();
     if (savedUser) {
       setPageType("login");
     }

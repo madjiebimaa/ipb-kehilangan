@@ -30,7 +30,7 @@ export default function HomePage() {
             <Box
               position="fixed"
               display="flex"
-              gap="2rem"
+              gap="1rem"
               flexDirection="column"
             >
               <UserWidget userId={userId} picturePath={picturePath} />
@@ -40,7 +40,7 @@ export default function HomePage() {
         </Box>
 
         <Box flexBasis={isNonMobileScreens ? "42%" : undefined}>
-          <Box display="flex" gap="2rem" flexDirection="column">
+          <Box display="flex" gap="1rem" flexDirection="column">
             {isCreatePostShow && <CreatePostWidget />}
             <FilterWidget />
             <PostsWidget userId={userId} />

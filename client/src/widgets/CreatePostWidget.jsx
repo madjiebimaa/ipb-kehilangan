@@ -24,7 +24,11 @@ import FlexBetween from "../components/FlexBetween";
 import MultipleInputField from "../components/MultipleInputField";
 import WidgetWrapper from "../components/WidgetWrapper";
 import { API_URL } from "../constants";
-import { setPosts } from "../state";
+import {
+  setPostCharacteristics,
+  setPosts,
+  setIsCreatePostShow,
+} from "../state";
 
 // const createPostSchema = yup.object().shape({
 //   title: yup.string().required("Required"),
@@ -79,7 +83,11 @@ export default function CreatePostWidget() {
 
     const posts = await createPostResponse.json();
     dispatch(setPosts({ posts }));
+    dispatch(setPostCharacteristics({ characteristics: [] }));
+    dispatch(setIsCreatePostShow());
+
     onSubmitProps.resetForm();
+
     setImage(null);
     setIsImage(false);
   };
