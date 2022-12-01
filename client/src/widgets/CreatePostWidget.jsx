@@ -13,6 +13,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { Formik } from "formik";
 import { useState } from "react";
 import Dropzone from "react-dropzone";
@@ -24,16 +25,12 @@ import { setPosts } from "../state";
 
 const createPostSchema = yup.object().shape({
   title: yup.string().required("Required"),
-  lostStatus: yup.string().required("Required"),
-  lostDate: yup.string().required("Required"),
   lostLocation: yup.string().required("Required"),
   picturePath: yup.string().required("Required"),
 });
 
 const initialCreatePostSchema = {
   title: "",
-  lostStatus: "",
-  lostDate: "",
   lostLocation: "",
   picturePath: "",
 };
@@ -43,10 +40,11 @@ export default function CreatePostWidget() {
   const { palette } = useTheme();
   const isMobileScreens = useMediaQuery("(min-width: 760px)");
 
-  const token = useSelector((state) => state.token);
   const [isImage, setIsImage] = useState(false);
+  const [lostDate, setLostDate] = useState(new Date());
   const [image, setImage] = useState(null);
   const { _id: userId } = useSelector((state) => state.user);
+  const token = useSelector((state) => state.token);
 
   const { medium, mediumMain } = palette.neutral;
 
@@ -58,6 +56,7 @@ export default function CreatePostWidget() {
     }
 
     formData.append("userId", userId);
+    formData.append("lostDate", lostDate);
 
     if (image) {
       formData.append("picture", image);
@@ -72,7 +71,7 @@ export default function CreatePostWidget() {
 
     const posts = await createPostResponse.json();
     dispatch(setPosts({ posts }));
-
+    onSubmitProps.resetForm();
     setImage(null);
   };
 
@@ -110,30 +109,19 @@ export default function CreatePostWidget() {
                 name="title"
                 error={Boolean(touched.title) && Boolean(errors.title)}
                 helperText={touched.title && errors.title}
-                sx={{ gridColumn: "span 4" }}
-              />
-              <TextField
-                label="Lost Status"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.lostStatus}
-                name="lostStatus"
-                error={
-                  Boolean(touched.lostStatus) && Boolean(errors.lostStatus)
-                }
-                helperText={touched.lostStatus && errors.lostStatus}
                 sx={{ gridColumn: "span 2" }}
               />
-              <TextField
-                label="Lost Date"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.lostDate}
-                name="lostDate"
-                error={Boolean(touched.lostDate) && Boolean(errors.lostDate)}
-                helperText={touched.lostDate && errors.lostDate}
-                sx={{ gridColumn: "span 2" }}
-              />
+              <Box sx={{ gridColumn: "span 2" }}>
+                <DesktopDatePicker
+                  label="Lost Date"
+                  inputFormat="MM/DD/YYYY"
+                  renderInput={(params) => <TextField {...params} />}
+                  onBlur={handleBlur}
+                  onChange={(dateValue) => setLostDate(dateValue)}
+                  value={lostDate}
+                  name="lostDate"
+                />
+              </Box>
               <TextField
                 label="Lost Location"
                 onBlur={handleBlur}
