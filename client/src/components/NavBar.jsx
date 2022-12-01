@@ -31,7 +31,12 @@ export default function NavBar() {
 
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
   const user = useSelector((state) => state.user);
-  const fullName = user ? `${user.firstName} ${user.lastName}` : "anonymous";
+  let fullName = user ? `${user.firstName} ${user.lastName}` : "anonymous";
+
+  if (fullName.length > 10) {
+    fullName = fullName.slice(0, 7);
+    fullName = `${fullName}...`;
+  }
 
   return (
     <FlexBetween padding={"1rem 6%"} bgcolor={palette.background.alt}>
