@@ -19,17 +19,17 @@ import { Formik } from "formik";
 import { useState } from "react";
 import Dropzone from "react-dropzone";
 import { useDispatch, useSelector } from "react-redux";
-import * as yup from "yup";
+// import * as yup from "yup";
 import FlexBetween from "../components/FlexBetween";
 import MultipleInputField from "../components/MultipleInputField";
 import WidgetWrapper from "../components/WidgetWrapper";
 import { setPosts } from "../state";
 
-const createPostSchema = yup.object().shape({
-  title: yup.string().required("Required"),
-  lostLocation: yup.string().required("Required"),
-  picturePath: yup.string().required("Required"),
-});
+// const createPostSchema = yup.object().shape({
+//   title: yup.string().required("Required"),
+//   lostLocation: yup.string().required("Required"),
+//   picturePath: yup.string().required("Required"),
+// });
 
 const initialCreatePostSchema = {
   title: "",
