@@ -2,7 +2,6 @@ import {
   Close,
   DarkMode,
   Menu,
-  Message,
   Notifications,
   Search,
 } from "@mui/icons-material";
@@ -39,7 +38,7 @@ export default function NavBar() {
   }
 
   return (
-    <FlexBetween padding={"1rem 6%"} bgcolor={palette.background.alt}>
+    <FlexBetween padding={"5px 6%"} bgcolor={palette.background.alt}>
       <FlexBetween gap="1.75rem">
         <Typography
           fontWeight={"bold"}
@@ -82,9 +81,7 @@ export default function NavBar() {
               <DarkMode sx={{ fontSize: "25px" }} />
             )}
           </IconButton>
-          <IconButton>
-            <Message sx={{ fontSize: "25px" }} />
-          </IconButton>
+
           <IconButton>
             <Notifications sx={{ fontSize: "25px" }} />
           </IconButton>
@@ -157,9 +154,7 @@ export default function NavBar() {
                 <DarkMode sx={{ fontSize: "25px" }} />
               )}
             </IconButton>
-            <IconButton>
-              <Message sx={{ fontSize: "25px" }} />
-            </IconButton>
+
             <IconButton>
               <Notifications sx={{ fontSize: "25px" }} />
             </IconButton>

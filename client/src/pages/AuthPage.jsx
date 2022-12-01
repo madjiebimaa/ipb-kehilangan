@@ -10,7 +10,7 @@ export default function AuthPage() {
       <Box
         width="100%"
         backgroundColor={palette.background.alt}
-        p="1rem 6%"
+        p="5px 6%"
         textAlign="center"
       >
         <Typography fontWeight="bold" fontSize="32px" color="primary">
