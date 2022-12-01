@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/node,linux,visualstudiocode,dotenv
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,linux,visualstudiocode,dotenv
 
+# Assets
+src/assets
+
 ### dotenv ###
 .env
 
