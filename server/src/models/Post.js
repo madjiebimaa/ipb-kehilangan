@@ -2,17 +2,22 @@ import mongoose from "mongoose";
 
 const postSchema = mongoose.Schema(
   {
-    name: {
+    userId: {
+      type: String,
+      required: true,
+    },
+    title: {
       type: String,
       required: true,
       min: 5,
     },
     lostStatus: {
       type: String,
+      default: "LOST",
       required: true,
     },
     lostDate: {
-      type: Date,
+      type: String,
       required: true,
     },
     lostLocation: {
@@ -24,11 +29,19 @@ const postSchema = mongoose.Schema(
       type: String,
       default: "",
     },
+    characteristics: {
+      type: Array,
+      default: [],
+    },
     viewedCount: Number,
+    comments: {
+      type: Array,
+      default: [],
+    },
   },
   { timestamp: true }
 );
 
-const Post = mongoose.Model("Post", postSchema);
+const Post = mongoose.model("Post", postSchema);
 
 export default Post;
