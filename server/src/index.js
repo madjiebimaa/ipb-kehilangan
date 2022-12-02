@@ -10,6 +10,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { registerController } from "./controllers/auth.js";
 import { createPostController } from "./controllers/posts.js";
+import { verifyToken } from "./middleware/auth.js";
 import authRoutes from "./routes/auth.js";
 import postsRoutes from "./routes/posts.js";
 import usersRoutes from "./routes/users.js";
@@ -50,7 +51,7 @@ app.get("/healtcheck", async (req, res) =>
 
 // ROUTES WITH FILES
 app.post("/auth/register", upload.single("picture"), registerController);
-app.post("/posts", upload.single("picture"), createPostController);
+app.post("/posts", verifyToken, upload.single("picture"), createPostController);
 
 // ROUTES
 app.use("/auth", authRoutes);

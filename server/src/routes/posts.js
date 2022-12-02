@@ -1,11 +1,13 @@
 import express from "express";
 import {
-  createPostController,
+  addPostCommentController,
   getPostsController,
 } from "../controllers/posts.js";
+import { verifyToken } from "../middleware/auth.js";
 
 const route = express.Router();
 
-route.get("/", getPostsController);
+route.get("/", verifyToken, getPostsController);
+route.patch("/:postId/comments", verifyToken, addPostCommentController);
 
 export default route;
