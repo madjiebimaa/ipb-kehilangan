@@ -13,8 +13,8 @@ const postSchema = mongoose.Schema(
     },
     lostStatus: {
       type: String,
+      enum: ["LOST", "FOUND"],
       default: "LOST",
-      required: true,
     },
     lostDate: {
       type: String,
@@ -27,7 +27,7 @@ const postSchema = mongoose.Schema(
     },
     picturePath: {
       type: String,
-      default: "",
+      default: "default-picture.jpeg",
     },
     characteristics: {
       type: Array,
