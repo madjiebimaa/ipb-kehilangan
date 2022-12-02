@@ -40,32 +40,33 @@ export default function PostsWidget({ userId, isProfile = false }) {
 
   return (
     <Box>
-      {posts.map(
-        ({
-          _id,
-          userId,
-          title,
-          lostStatus,
-          lostDate,
-          lostLocation,
-          picturePath,
-          characteristics,
-          comments,
-        }) => (
-          <PostWidget
-            key={_id}
-            postId={_id}
-            postUserId={userId}
-            title={title}
-            lostStatus={lostStatus}
-            lostDate={lostDate}
-            lostLocation={lostLocation}
-            picturePath={picturePath}
-            characteristics={characteristics}
-            comments={comments}
-          />
-        )
-      )}
+      {posts.length !== 0 &&
+        posts.map(
+          ({
+            _id,
+            userId,
+            title,
+            lostStatus,
+            lostDate,
+            lostLocation,
+            picturePath,
+            characteristics,
+            comments,
+          }) => (
+            <PostWidget
+              key={_id}
+              postId={_id}
+              postUserId={userId}
+              title={title}
+              lostStatus={lostStatus}
+              lostDate={lostDate}
+              lostLocation={lostLocation}
+              picturePath={picturePath}
+              characteristics={characteristics}
+              comments={comments}
+            />
+          )
+        )}
     </Box>
   );
 }

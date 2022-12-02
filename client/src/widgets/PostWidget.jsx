@@ -1,6 +1,7 @@
 import {
   CalendarToday,
   ChatBubbleOutlineOutlined,
+  CreateRounded,
   Download,
   LocationOnOutlined,
   ShareOutlined,
@@ -10,14 +11,18 @@ import {
   Button,
   Divider,
   IconButton,
+  TextField,
   Typography,
+  useMediaQuery,
   useTheme,
 } from "@mui/material";
 import { toPng } from "html-to-image";
 import { useCallback, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import FlexBetween from "../components/FlexBetween";
 import WidgetWrapper from "../components/WidgetWrapper";
 import { API_URL } from "../constants";
+import { setPost } from "../state";
 
 const PostWidget = ({
   postId,
@@ -32,12 +37,18 @@ const PostWidget = ({
 }) => {
   const ref = useRef(null);
   const { palette } = useTheme();
+  const isMobileScreens = useMediaQuery("(min-width: 760px)");
+  const dispatch = useDispatch();
+
+  const token = useSelector((state) => state.token);
+  const loggedInUser = useSelector((state) => state.user);
 
   const [isComments, setIsComments] = useState(false);
+  const [comment, setComment] = useState("");
 
   const { main, medium } = palette.neutral;
 
-  const onDownloadClick = useCallback(() => {
+  const handleDownloadClick = useCallback(() => {
     if (ref.current === null) {
       return;
     }
@@ -53,6 +64,25 @@ const PostWidget = ({
         console.log(err);
       });
   }, [ref, picturePath]);
+
+  const handleAddCommentClick = async () => {
+    const updatedPostResponse = await fetch(
+      `${API_URL}/posts/${postId}/comments`,
+      {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId: loggedInUser._id, comment }),
+      }
+    );
+
+    const updatedPost = await updatedPostResponse.json();
+    dispatch(setPost({ post: updatedPost }));
+
+    setComment("");
+  };
 
   return (
     <WidgetWrapper m="2rem 0" ref={ref}>
@@ -74,7 +104,16 @@ const PostWidget = ({
         />
       )}
 
-      <FlexBetween mt="1rem">
+      <FlexBetween
+        mt="1rem"
+        sx={
+          !isMobileScreens && {
+            flexDirection: "column",
+            alignItems: "start",
+            gap: "0.5rem",
+          }
+        }
+      >
         <Box display="flex" alignItems="center" gap="1rem">
           <LocationOnOutlined fontSize="large" sx={{ color: medium }} />
           <Typography color={main}>{lostLocation}</Typography>
@@ -113,7 +152,7 @@ const PostWidget = ({
         </FlexBetween>
 
         <FlexBetween gap="2rem">
-          <IconButton onClick={onDownloadClick}>
+          <IconButton onClick={handleDownloadClick}>
             <Download />
           </IconButton>
 
@@ -125,6 +164,23 @@ const PostWidget = ({
 
       {isComments && (
         <Box mt="0.5rem">
+          {loggedInUser._id !== postUserId && (
+            <FlexBetween gap="0.75rem" mb="0.5rem">
+              <TextField
+                fullWidth
+                label="comment"
+                onChange={(e) => {
+                  setComment(e.target.value);
+                  console.log(comment);
+                }}
+                value={comment}
+                name="comment"
+              />
+              <IconButton onClick={handleAddCommentClick}>
+                <CreateRounded />
+              </IconButton>
+            </FlexBetween>
+          )}
           {comments.map((comment, i) => (
             <Box key={`${title}-${i}`}>
               <Divider />
@@ -133,7 +189,7 @@ const PostWidget = ({
               </Typography>
             </Box>
           ))}
-          <Divider />
+          <Divider sx={{ mt: "0.5rem" }} />
         </Box>
       )}
     </WidgetWrapper>
