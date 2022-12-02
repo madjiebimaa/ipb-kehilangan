@@ -59,3 +59,32 @@ export async function getUserPostsController(req, res) {
     res.status(404).json({ message: err.message });
   }
 }
+
+export async function addPostCommentController(req, res) {
+  try {
+    const { postId } = req.params;
+    const { userId, comment } = req.body;
+
+    const post = await Post.findById(postId);
+
+    if (post.userId === userId) {
+      return res
+        .status(404)
+        .json({ message: "Post owner can't add comment to their post" });
+    }
+
+    post.comments.push(comment);
+    const updatedPost = await Post.findByIdAndUpdate(
+      postId,
+      {
+        comments: post.comments,
+      },
+      { new: true }
+    );
+
+    res.status(200).json(updatedPost);
+  } catch (err) {
+    console.log(err);
+    res.status(404).json({ message: err.message });
+  }
+}
