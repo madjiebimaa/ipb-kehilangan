@@ -82,6 +82,18 @@ Metode yang digunakan dalam  pembuatan perangkat lunak IPB Kehilangan adalah pro
 
 ![erd](./client/public/assets/erd.png)
 
+## Link Demo Aplikasi
+
+[Video Demo](http://ipb.link/video-demo-ipbkehilangan)
+
+## Link Deploy Aplikasi
+
+[Deploy Aplikasi](http://ipb.link/deploy-ipbkehilangan)
+
+## Link Sheet Test Case Aplikasi
+
+[Deploy Aplikasi](https://ipb.link/sheet-testcase-ipbkehilangan)
+
 ## Link Figma
 
 [Design Aplikasi](https://ipb.link/figma-ipbkehilangan)
